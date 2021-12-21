@@ -41,7 +41,7 @@ function Success() {
         <div className={styles.App}>
             <h1>Successfully registered! </h1>
             <h2>Please login to continue</h2>
-            <form >
+            <form onSubmit={loginHandler}>
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -60,7 +60,7 @@ function Success() {
                     value={loginPassword}
                     onChange={(e)=>setLoginPassword(e.target.value)}
                 />
-            </form>
+            </form >
             <button onClick={loginHandler}>Login</button>
             <p>Don't have an account?<a href="/register" >Sign up</a></p>
         </div>

@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useEffect,useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './styles.module.css'
 
@@ -19,17 +19,58 @@ function Main() {
     const [amount, setAmount] = useState(0)
     const [alert, setAlert] = useState(false);
     const [amountOfCurrencyToChange, setAmountOfCurrencyToChange] = useState(0)
+    const [localData, setLocalData] = useState([])
+    const [currencyInLocal,setCurrencyInLocal]=useState([])
+    const [lastUpdate, setLastUpdate] = useState([
+        {isTick: false, name: "USD", value: 10000 },
+    ])
 
     const [currenciesOwned, setCurrenciesOwned] = useState([
         {isTick: false, name: "USD", value: 10000 },
-        {isTick: false, name: "TRY", value: 0 }
+        
     ])
 
     let name= localStorage.name
     let surname=localStorage.surname
+
+    
+    useEffect(() =>{
+        setLocalData(data.map((item)=>{
+            
+            return item[0];
+        }))
+    },[data])
+
+    useEffect(() =>{
+        setCurrencyInLocal(localData.filter((item)=>{
+            if(localStorage.hasOwnProperty(item)){
+                return item;
+            }
+        }))
+    },[localData])
+
+
+
+    useEffect(() =>{
+        setLastUpdate(currencyInLocal.map((item,i)=>{
+            return{
+                name: item , value: localStorage.getItem(item), isTick: false
+            }
+        }))
+    },[currencyInLocal])
+
+    useEffect(() => {
+        lastUpdate.map((item,i)=>{
+            item.id=i
+        })
+    },[lastUpdate])
+
+
+
+
     return (
         <div >
-            <Header name={name} surname={surname} currenciesOwned={currenciesOwned} setCurrenciesOwned={setCurrenciesOwned}/>
+            <Header name={name} surname={surname} currenciesOwned={currenciesOwned} setCurrenciesOwned={setCurrenciesOwned} lastUpdate={lastUpdate} setLastUpdate={setLastUpdate}/>
             <Search 
             filteredData={filteredData} setFilteredData={setFilteredData} 
             data={data} setData={setData} 
@@ -43,6 +84,7 @@ function Main() {
             amount={amount} setAmount={setAmount}
             alert={alert} setAlert={setAlert}
             amountOfCurrencyToChange={amountOfCurrencyToChange} setAmountOfCurrencyToChange={setAmountOfCurrencyToChange}
+            lastUpdate={lastUpdate} setLastUpdate={setLastUpdate}
             />
             <Tablex 
             filteredData={filteredData} setFilteredData={setFilteredData} 
@@ -56,8 +98,9 @@ function Main() {
             amount={amount} setAmount={setAmount}
             alert={alert} setAlert={setAlert}
             amountOfCurrencyToChange={amountOfCurrencyToChange} setAmountOfCurrencyToChange={setAmountOfCurrencyToChange}
+            lastUpdate={lastUpdate} setLastUpdate={setLastUpdate}
             />
-            <Footer currenciesOwned={currenciesOwned}/>
+            <Footer currenciesOwned={currenciesOwned} lastUpdate={lastUpdate}/>
         </div>
         
     )

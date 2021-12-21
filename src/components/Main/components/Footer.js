@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 
-function Footer({currenciesOwned}) {
+function Footer({currenciesOwned,lastUpdate}) {
 
     const [date,setDate]=useState("")
     const [time,setTime]=useState()
@@ -16,11 +16,11 @@ useEffect(() => {
 
 setInterval(() => {
     setMinutes((m)=>
-    m+1)
+    m+2)
 },2000*60
 )
 
-},[currenciesOwned])
+},[lastUpdate])
 
     return (
         <div>

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Navbar, Container } from 'react-bootstrap'
 
-function Header({name,surname,currenciesOwned, setCurrenciesOwned}) {
+function Header({name,surname,currenciesOwned, setCurrenciesOwned,lastUpdate}) {
     return (
             <Navbar  >
                 <Container >
@@ -13,7 +13,7 @@ function Header({name,surname,currenciesOwned, setCurrenciesOwned}) {
                         <Navbar.Brand href="#home">QbicaCurrencyApp</Navbar.Brand>
                         <Navbar.Text>
                             <div >Total Worth: $10000</div>
-                            <div>{currenciesOwned.map((item, i) =>
+                            <div>{lastUpdate.map((item, i) =>
                                 <div key={i}> {item.name}:{item.value}</div>
                             )}</div>
                         </Navbar.Text>

@@ -5,7 +5,7 @@ import { Modal, Button, Container, Toast } from 'react-bootstrap'
 
 
 
-function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount, baseCode, setBaseCode, targetCode, setTargetCode, modalInfo, setModalInfo, filteredData, setFilteredData, setData, rate, setRate, showModal, setShowModal, currenciesOwned, setCurrenciesOwned, amountOfCurrencyToChange, setAmountOfCurrencyToChange ,data}) {
+function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount, baseCode, setBaseCode, targetCode, setTargetCode, modalInfo, setModalInfo, filteredData, setFilteredData, setData, rate, setRate, showModal, setShowModal, currenciesOwned, setCurrenciesOwned, amountOfCurrencyToChange, setAmountOfCurrencyToChange ,data,lastUpdate,setLastUpdate,}) {
 
     const [buttonModal,setButtonModal]=useState(false)
     const [buyOrSell,setBuyOrSell]=useState("")
@@ -16,12 +16,12 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
 
             if(e.target.innerHTML==="BUY") {
                 
-                setTargetCode(currenciesOwned[Number(e.target.id)].name)
+                setTargetCode(lastUpdate[Number(e.target.id)].name)
                 setBuyOrSell("BUY")
             }
 
             if(e.target.innerHTML==="SELL") {
-                setBaseCode(currenciesOwned[Number(e.target.id)].name)
+                setBaseCode(lastUpdate[Number(e.target.id)].name)
                 setBuyOrSell("SELL")
             }
     }
@@ -36,11 +36,11 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
 
 
         if (e.target.checked) {
-            currenciesOwned.map((item) => 
+            lastUpdate.map((item) => 
                 item.isTick = false
             )
         }
-        setCurrenciesOwned(currenciesOwned.map(item => {
+        setLastUpdate(lastUpdate.map(item => {
             if (item.id === Number(e.target.id)) {
                 if (item.isTick === false) {
                     return {
@@ -75,8 +75,12 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
             setAlert(true)
             return false;
         }
+        if(targetCode === "" || baseCode===""){
+            setAlert(true)
+            return false;
+        }
 
-        setCurrenciesOwned(currenciesOwned.map((item) => {
+        setLastUpdate(lastUpdate.map((item) => {
 
             if (item.name === targetCode) {
                 return {
@@ -95,7 +99,7 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
         }))
 
 
-
+        setButtonModal(false)
     }
 
     return (
@@ -111,7 +115,7 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
                     </tr>
                 </thead>
                 <tbody>
-                    {currenciesOwned.map((item, i) =>
+                    {lastUpdate.map((item, i) =>
                         <tr key={i}>
                             <td>
                                 <input id={i} type="checkbox" checked={item.isTick} onClick={tickHandler} onChange={()=>{}}/>
@@ -137,7 +141,7 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
                     <Container>
                         <Modal.Header closeButton className="justify-content-between ">
                         
-                            {currenciesOwned.map((item, i) =>
+                            {lastUpdate.map((item, i) =>
                                 buyOrSell==="BUY" ?
                                 <Button id={i} key={i} onClick={() => setBaseCode(item.name)}>{item.name}</Button> 
                                 : <Button id={i} key={i} onClick={() => setTargetCode(item.name)}>{item.name}</Button>
@@ -147,7 +151,7 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
                     </Container>
                     <Modal.Body>
                         <div> Rate: {rate} </div>
-                        <form action="">
+                        
                             <label htmlFor="amount">Amount</label>
                             <input
                                 type="number"
@@ -155,7 +159,7 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
                                 value={amount}
                                 onChange={(e) => setAmount(Number(e.target.value))}
                             />
-                        </form>
+                        
                         <Toast className="d-inline-block m-1" bg="danger" show={alert} onClose={() => setAlert(false)} dismissible>
                             <Toast.Header>
                                 <strong className="me-auto">ERROR!</strong>

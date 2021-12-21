@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode,setTargetCode,modalInfo,setModalInfo,filteredData,setFilteredData,data,setData,rate,setRate,showModal,setShowModal,searchInput,setSearchInput,currenciesOwned,setCurrenciesOwned,amountOfCurrencyToChange,setAmountOfCurrencyToChange}) {
+function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode,setTargetCode,modalInfo,setModalInfo,filteredData,setFilteredData,data,setData,rate,setRate,showModal,setShowModal,searchInput,setSearchInput,currenciesOwned,setCurrenciesOwned,amountOfCurrencyToChange,setAmountOfCurrencyToChange,lastUpdate,setLastUpdate}) {
     
 
     const searchItems = (searchValue) => {
@@ -56,24 +56,22 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
             }
         }
         getRateFromApi();
-        setInterval(getRateFromApi,120000);
-        let arrayOfCurrencyToChange = (currenciesOwned.filter((item) => {
+        // setInterval(getRateFromApi,120000);
+        
 
-            return Object.values(item).includes(baseCode);
-
-        }))
-        // console.log(arrayOfCurrencyToChange)
-        // console.log(arrayOfCurrencyToChange[0].value)
-        setAmountOfCurrencyToChange(arrayOfCurrencyToChange[0].value)
-
-        currenciesOwned.map((item,i) => {
-            item.id = i
+        lastUpdate.map((item,i) => {
+            
             localStorage.setItem(item.name,item.value)
         })
 
-    }, [showModal, baseCode, currenciesOwned,targetCode])
+    }, [showModal, baseCode, lastUpdate,targetCode])
 
-    
+    useEffect(() =>{
+        let arrayOfCurrencyToChange = (lastUpdate.filter((item) => {
+            return Object.values(item).includes(baseCode);
+        }))
+        setAmountOfCurrencyToChange(arrayOfCurrencyToChange[0].value)
+    },[])
 
     const handleShow = (e) => {
 
@@ -101,22 +99,27 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
             return false;
         }
 
+        if(targetCode === "" || baseCode===""){
+            setAlert(true)
+            return false;
+        }
 
-        if (currenciesOwned.filter((item) => item.name === targetCode).length === 0) {
-            currenciesOwned.map((item) => {
+
+        if (lastUpdate.filter((item) => item.name === targetCode).length === 0) {
+            lastUpdate.map((item) => {
                 if (item.name === baseCode) {
 
                     item.value -= amount
 
                 }
             })
-            setCurrenciesOwned([
-                ...currenciesOwned,
+            setLastUpdate([
+                ...lastUpdate,
                 { name: targetCode, value: amount * rate, isTick: false }
             ])
 
         } else {
-            setCurrenciesOwned(currenciesOwned.map((item) => {
+            setLastUpdate(lastUpdate.map((item) => {
 
                 if (item.name === targetCode) {
                     return {
@@ -134,12 +137,12 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
                 }
             }))
         }
-
+        setShowModal(false)
     }
 
     return (
         <div className="container">
-            <form >
+            
                 <input
                     type="search"
                     className="form-control"
@@ -156,7 +159,7 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
                     <Container>
                         <Modal.Header closeButton className="justify-content-between ">
 
-                            {currenciesOwned.map((item, i) =>
+                            {lastUpdate.map((item, i) =>
                                 <Button key={i} onClick={() => setBaseCode(item.name)}>{item.name}</Button>
                             )}
                             {baseCode} to {modalInfo}
@@ -164,7 +167,7 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
                     </Container>
                     <Modal.Body>
                         <div> Rate: {rate} </div>
-                        <form action="">
+                        
                             <label htmlFor="amount">Amount</label>
                             <input
                                 type="number"
@@ -172,7 +175,7 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
                                 value={amount}
                                 onChange={(e) => setAmount(Number(e.target.value))}
                             />
-                        </form>
+                        
                         <Toast className="d-inline-block m-1" bg="danger" show={alert} onClose={() => setAlert(false)} dismissible>
                             <Toast.Header>
                                 <strong className="me-auto">ERROR!</strong>
@@ -190,7 +193,7 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </form>
+            
 
         </div>
     )
