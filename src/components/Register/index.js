@@ -80,66 +80,61 @@ const submitHandler = (e)=>{
             <h1>Welcome </h1>
             <h2>Plese register to continue</h2>
             <form >
-                <label htmlFor="name">Name</label>
                 <input 
                 type="text" 
                 name="name" 
                 placeholder="Enter your name" 
                 id="name"
+                className={styles.name}
                 value={name}
                 onChange={(e)=>setName(e.target.value)}
                 />
-
-                <label htmlFor="surname">Surname</label>
                 <input 
                 type="text" 
                 name="surname" 
                 placeholder="Enter your surname" 
                 id="surname"
+                className={styles.surname}
                 value={surname}
                 onChange={(e)=>{setSurname(e.target.value)}}
                 />
- 
-                <label htmlFor="username">Username</label>
                 <input 
                 type="text" 
                 name="username" 
                 placeholder="Enter your username" 
                 id="username"
+                className={styles.username}
                 value={username}
                 onChange={(e)=>setUsername(e.target.value)}
                 />
- 
-                <label htmlFor="email">Email</label>
                 <input 
                 type="email" 
                 name="email" 
                 placeholder="Enter your email" 
                 id="email" 
+                className={styles.mail}
                 value={email}
                 onChange={(e) =>setEmail(e.target.value)}
                 />
-
-                <label htmlFor="password">Password</label>
                 <input 
                 type="password" 
                 name="password" 
                 placeholder="Enter your password" 
                 id="password" 
+                className={styles.password}
                 value={password}
                 onChange={(e) =>setPassword(e.target.value)}
                 />
-
-                <label htmlFor="password2">Confirm Password</label>
                 <input 
                 type="password" 
                 name="password2" 
-                placeholder="Enter your password" 
-                id="password2" 
+                placeholder="Confirm your password" 
+                id="password2"
+                className={styles.password} 
                 value={confirmPassword}
                 onChange={(e)=>setConfirmPassword(e.target.value)}
                 />
-                <button onClick={submitHandler}>Sign Up</button>
+                <input type="submit" value="Sign Up" onClick={submitHandler}/>
             </form>
             
         </div>
