@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import styles from "./styles.module.css"
 import {useNavigate} from "react-router-dom"
+import { Container } from "react-bootstrap"
 
 function Login() {
     const[loginUsername,setLoginUsername]=useState("")
@@ -38,11 +39,11 @@ function Login() {
     }
 
     return (
-        <div className={styles.App}>
+        
+        <div >
+            <form className={styles.App}>
             <h1>Welcome </h1>
             <h2>Please login to continue</h2>
-            <form >
-                <label htmlFor="username">Username</label>
                 <input 
                 type="text" 
                 name="username" 
@@ -51,9 +52,6 @@ function Login() {
                 value={loginUsername}
                 onChange={(e)=>setLoginUsername(e.target.value)}
                 />
-            </form>
-            <form >
-                <label htmlFor="password">Password</label>
                 <input 
                 type="password" 
                 name="password" 
@@ -62,10 +60,12 @@ function Login() {
                 value={loginPassword}
                 onChange={(e)=>setLoginPassword(e.target.value)}
                 />
+                <input type ="submit" value="Login" onClick={loginHandler}> 
+                </input>
+                <p>Don't have an account?<a href="/register" >Sign up</a></p>
             </form>
-            <button onClick={loginHandler}>Login</button>
-            <p>Don't have an account?<a href="/register" >Sign up</a></p>
         </div>
+        
     )
 }
 
