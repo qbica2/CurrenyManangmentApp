@@ -130,8 +130,8 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
                                 {item.value}
                             </td>
                             <td>
-                                <Button id={i} variant="success" disabled={!item.isTick} size="sm" onClick={handleShow}>BUY</Button>
-                                <Button id={i} variant="danger" disabled={!item.isTick} size="sm" onClick={handleShow}>SELL</Button>
+                                <Button className='buy-button' id={i} variant="success" disabled={!item.isTick} size="sm" onClick={handleShow}>BUY</Button>
+                                <Button className="sell-button" id={i} variant="danger" disabled={!item.isTick} size="sm" onClick={handleShow}>SELL</Button>
                             </td>
                         </tr>
                     )}
@@ -143,8 +143,8 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
                         
                             {lastUpdate.map((item, i) =>
                                 buyOrSell==="BUY" ?
-                                <Button id={i} key={i} onClick={() => setBaseCode(item.name)}>{item.name}</Button> 
-                                : <Button id={i} key={i} onClick={() => setTargetCode(item.name)}>{item.name}</Button>
+                                <Button className="modal-top-button" id={i} key={i} onClick={() => setBaseCode(item.name)}>{item.name}</Button> 
+                                : <Button className="modal-top-button" id={i} key={i} onClick={() => setTargetCode(item.name)}>{item.name}</Button>
                             )}
                             {baseCode} to {targetCode}
                         </Modal.Header>
@@ -152,7 +152,7 @@ function Tablex({searchInput,setSearchInput, alert, setAlert, amount, setAmount,
                     <Modal.Body>
                         <div> Rate: {rate} </div>
                         
-                            <label htmlFor="amount">Amount</label>
+                            <label htmlFor="amount">Amount: </label>
                             <input
                                 type="number"
                                 name="amount"

@@ -39,10 +39,10 @@ function Success() {
 
     return (
         <div className={styles.App}>
+
+            <form onSubmit={loginHandler}>
             <h1>Successfully registered! </h1>
             <h2>Please login to continue</h2>
-            <form onSubmit={loginHandler}>
-                <label htmlFor="username">Username</label>
                 <input
                     type="text"
                     name="username"
@@ -51,7 +51,6 @@ function Success() {
                     value={loginUsername}
                     onChange={(e)=>setLoginUsername(e.target.value)}
                 />
-                <label htmlFor="password">Password</label>
                 <input
                     type="password"
                     name="password"
@@ -60,9 +59,9 @@ function Success() {
                     value={loginPassword}
                     onChange={(e)=>setLoginPassword(e.target.value)}
                 />
+                <input type="submit" value="Login" onClick={loginHandler}/>
+                <p>Don't have an account?<a href="/register" >Sign up</a></p>
             </form >
-            <button onClick={loginHandler}>Login</button>
-            <p>Don't have an account?<a href="/register" >Sign up</a></p>
         </div>
     )
 }

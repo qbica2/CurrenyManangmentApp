@@ -145,10 +145,10 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
             
                 <input
                     type="search"
+                    placeholder="What are you looking for"
                     className="form-control"
                     value={searchInput.toUpperCase()}
                     onChange={(e) => searchItems(e.target.value)} />
-
                 <ul>
                     {filteredData.map((data, i) => (
                         <li id={i} onClick={handleShow} className="data" key={i}>{data[0]}-{data[1]}</li>
@@ -160,7 +160,7 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
                         <Modal.Header closeButton className="justify-content-between ">
 
                             {lastUpdate.map((item, i) =>
-                                <Button key={i} onClick={() => setBaseCode(item.name)}>{item.name}</Button>
+                                <Button className="modal-top-button" key={i} onClick={() => setBaseCode(item.name)}>{item.name}</Button>
                             )}
                             {baseCode} to {modalInfo}
                         </Modal.Header>
@@ -168,7 +168,7 @@ function Search({alert,setAlert,amount,setAmount,baseCode,setBaseCode,targetCode
                     <Modal.Body>
                         <div> Rate: {rate} </div>
                         
-                            <label htmlFor="amount">Amount</label>
+                            <label htmlFor="amount">Amount: </label>
                             <input
                                 type="number"
                                 name="amount"

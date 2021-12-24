@@ -3,12 +3,77 @@ body{
 }
 .data{
     background-color: rgb(126, 124, 126);
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    margin:0 20px 0 -5px;
 }
 .data:hover {
-    background-color: rgba(117, 228, 213, 0.637);
+    /* background-color: rgba(117, 228, 213, 0.637); */
+    background-color: #3498db;;
+    cursor: pointer;
+    font-weight:bolder
+    
+}
+.logo{
+    font-weight:bolder;
+    font-family: "Helvetica Neue",Helvetica;
 }
 
 li {
     list-style: none;
     padding: 10px;
+   
+}
+.navText{
+    color: rgb(0, 0, 0)!important;
+    font-family: 'Times New Roman', Times, serif;
+}
+.navText a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight:bolder;
+}
+
+.navText button {
+    border:0;
+    background:none;
+    display: block;
+    border: 2px solid #2ecc71;
+    margin: 10px auto;
+    text-align: center;
+    padding: 5px 12px;
+    border-radius:25px;
+}
+
+.container input[type="search"] {
+    border:0;
+    width: 800px;
+    display:block;
+    height: 45px;
+    margin: 10px auto;
+    border: 2px solid #3498db;
+    border-radius:25px;
+    transition: 0.25s;
+}
+
+.container input[type="search"]:focus{
+    width: 100%;
+    border: 5px solid #2ecc71;
+}
+
+.buy-button {
+    margin: 0 10px;
+    border-radius: 5px !important;
+}
+.sell-button {
+    margin: 0 10px;
+    border-radius: 5px !important;
+}
+.modal-top-button {
+    background-color: #34495e !important;
+    margin: 0 3px;
+}
+
+.modal-top-button:hover {
+    color:#3498db !important;
 }

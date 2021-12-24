@@ -8,7 +8,6 @@
     background-color:#191919;
     text-align: center;
     border-radius: 10%;
-
 }
 .name, .surname{
     border:0;
@@ -100,4 +99,16 @@
     color: rgb(179, 170, 170);
     font-size:20px;
     font-family:'Times New Roman', Times, serif;
+}
+.App p {
+    color: rgb(179, 170, 170);
+    
+}
+
+.App p a {
+    text-decoration: none;
+}
+
+.App p a:hover {
+    text-decoration: underline;
 }

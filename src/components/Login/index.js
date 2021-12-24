@@ -40,7 +40,7 @@ function Login() {
 
     return (
         
-        <div >
+        <div>
             <form className={styles.App}>
             <h1>Welcome </h1>
             <h2>Please login to continue</h2>

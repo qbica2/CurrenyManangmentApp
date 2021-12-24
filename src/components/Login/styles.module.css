@@ -80,5 +80,8 @@ body {
     text-decoration: none;
 }
 
+.App p a:hover {
+    text-decoration: underline;
+}
 
 

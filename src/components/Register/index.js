@@ -135,6 +135,7 @@ const submitHandler = (e)=>{
                 onChange={(e)=>setConfirmPassword(e.target.value)}
                 />
                 <input type="submit" value="Sign Up" onClick={submitHandler}/>
+                <p>Already have an account <a href="/">Login</a> </p>
             </form>
             
         </div>
